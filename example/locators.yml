@@ -1,0 +1,77 @@
+# Enhanced Locators File with Multi-Level Structure
+# This file demonstrates the new caching and multi-level YAML support
+
+# Simple two-level structure (existing format)
+google:
+  searchBox: "textarea[name='q']"
+  searchButton: "input[name='btnK']"
+
+googleResults:
+  logo: "div.logo"
+
+# Multi-level structure (new format)
+ecommerce:
+  header:
+    navigation:
+      home: "nav a[href='/']"
+      products: "nav a[href='/products']"
+      cart: "nav a[href='/cart']"
+    search:
+      input: "input[type='search']"
+      button: "button[type='submit']"
+  productPage:
+    details:
+      title: "h1.product-title"
+      price: "span.product-price"
+      description: "div.product-description"
+    actions:
+      addToCart: "button.add-to-cart"
+      buyNow: "button.buy-now"
+      wishlist: "button.wishlist"
+    gallery:
+      mainImage: "img.main-product-image"
+      thumbnails: "div.thumbnail-container img"
+      zoom: "div.zoom-container"
+
+# Deeply nested structure
+admin:
+  dashboard:
+    sidebar:
+      menu:
+        users:
+          list: "a[href='/admin/users']"
+          create: "a[href='/admin/users/create']"
+        products:
+          list: "a[href='/admin/products']"
+          create: "a[href='/admin/products/create']"
+          categories: "a[href='/admin/categories']"
+        orders:
+          list: "a[href='/admin/orders']"
+          pending: "a[href='/admin/orders/pending']"
+          completed: "a[href='/admin/orders/completed']"
+    content:
+      stats:
+        totalUsers: "div.stat-users .count"
+        totalOrders: "div.stat-orders .count"
+        revenue: "div.stat-revenue .amount"
+      charts:
+        salesChart: "canvas#sales-chart"
+        userChart: "canvas#user-chart"
+
+# Mixed structure with arrays
+blog:
+  articles:
+    list:
+      container: "div.articles-list"
+      item: "article.article-item"
+      title: "h2.article-title"
+      excerpt: "p.article-excerpt"
+      readMore: "a.read-more"
+    pagination:
+      next: "a.pagination-next"
+      prev: "a.pagination-prev"
+      page: "a.pagination-page"
+  sidebar:
+    categories: "ul.category-list li"
+    tags: "div.tag-cloud a"
+    search: "input.sidebar-search"  

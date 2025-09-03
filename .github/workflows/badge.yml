@@ -1,0 +1,20 @@
+name: Generate Badges
+
+on:
+  workflow_run:
+    workflows: ['CI', 'Release']
+    types:
+      - completed
+
+jobs:
+  generate-badges:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion != 'skipped' }}
+
+    steps:
+      - name: Generate Badge
+        run: |
+          echo "CI/CD Status: ${{ github.event.workflow_run.conclusion }}"
+          echo "Workflow: ${{ github.event.workflow_run.name }}"
+          echo "Run ID: ${{ github.event.workflow_run.id }}"
+          echo "Badge URL: https://github.com/${{ github.repository }}/actions/workflows/${{ github.event.workflow_run.name }}.yml/badge.svg"

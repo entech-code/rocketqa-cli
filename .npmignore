@@ -1,0 +1,50 @@
+# Source code and build artifacts
+src/
+build/
+dist/
+*.ts
+*.tsx
+
+# Test files and reports
+features/
+reports/
+test-data/
+scripts/
+report-tools/
+sharding-tools/
+
+# Configuration files
+tsconfig.json
+.eslintrc.json
+.prettierrc
+.prettierignore
+.eslintignore
+smartgit.config
+renovate.json
+.nvmrc
+.npmrc
+
+# Lock files
+package-lock.json
+pnpm-lock.yaml
+
+# Development dependencies
+node_modules/
+.vscode/
+.github/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Documentation (keep only the main README)
+README-npx.md
+docs/
+
+# Git
+.git/
+.gitignore
