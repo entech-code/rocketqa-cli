@@ -61,3 +61,4 @@ jobs:
         with:
           commit_message: 'chore: prepare release v${{ needs.set_version.outputs.version }}'
           file_pattern: package.json
+          branch: main
