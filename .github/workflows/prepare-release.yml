@@ -56,11 +56,8 @@ jobs:
           pnpm version ${{ needs.set_version.outputs.version }} --no-git-tag-version
           echo "Updated package.json to version ${{ needs.set_version.outputs.version }}"
 
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add package.json
-          git commit -m "chore: prepare release v${{ needs.set_version.outputs.version }}"
-          git push origin main
-          echo "Committed and pushed version bump to main branch"
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: prepare release v${{ needs.set_version.outputs.version }}'
+          file_pattern: package.json
