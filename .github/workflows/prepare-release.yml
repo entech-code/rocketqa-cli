@@ -5,22 +5,30 @@ on:
     # Run every Monday at 9 AM UTC
     - cron: '0 9 * * 1'
   workflow_dispatch:
-    inputs:
-      bump_type:
-        description: 'Version bump type'
-        required: true
-        default: 'patch'
-        type: choice
-        options:
-          - patch
-          - minor
-          - major
-
 env:
   NODE_VERSION: '20'
 
 jobs:
+  set_version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: read
+    outputs:
+      version: ${{ steps.auto_version_tagging.outputs.version }}
+      tag: ${{ steps.auto_version_tagging.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: entech-code/auto-version-tagging-action@HEAD
+        id: auto_version_tagging
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          majorVersion: 1
+
   prepare-release:
+    needs: set_version
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,7 +38,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ needs.set_version.outputs.tag }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -46,154 +54,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Get current version
-        id: current_version
-        run: |
-          CURRENT_VERSION=$(node -p "require('./package.json').version")
-          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "Current version: $CURRENT_VERSION"
-
-      - name: Determine bump type
-        id: bump_type
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "bump_type=${{ github.event.inputs.bump_type }}" >> $GITHUB_OUTPUT
-          else
-            # Auto-determine based on commit messages since last release
-            echo "bump_type=patch" >> $GITHUB_OUTPUT
-          fi
-          echo "Bump type: ${{ steps.bump_type.outputs.bump_type }}"
-
-      - name: Calculate new version
-        id: new_version
-        run: |
-          CURRENT=${{ steps.current_version.outputs.current_version }}
-          BUMP_TYPE=${{ steps.bump_type.outputs.bump_type }}
-
-          # Parse current version
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT"
-
-          case $BUMP_TYPE in
-            major)
-              NEW_MAJOR=$((MAJOR + 1))
-              NEW_VERSION="$NEW_MAJOR.0.0"
-              ;;
-            minor)
-              NEW_MINOR=$((MINOR + 1))
-              NEW_VERSION="$MAJOR.$NEW_MINOR.0"
-              ;;
-            patch)
-              NEW_PATCH=$((PATCH + 1))
-              NEW_VERSION="$MAJOR.$MINOR.$NEW_PATCH"
-              ;;
-          esac
-
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "New version: $NEW_VERSION"
-
-      - name: Check if release PR already exists
-        id: check_existing_pr
-        run: |
-          # Check if a release PR already exists
-          EXISTING_PR=$(gh pr list --search "Release v${{ steps.new_version.outputs.new_version }}" --json number --jq '.[0].number')
-          if [ "$EXISTING_PR" != "null" ] && [ "$EXISTING_PR" != "" ]; then
-            echo "existing_pr=$EXISTING_PR" >> $GITHUB_OUTPUT
-            echo "Release PR already exists: #$EXISTING_PR"
-          else
-            echo "existing_pr=" >> $GITHUB_OUTPUT
-            echo "No existing release PR found"
-          fi
-
-      - name: Create release branch
-        if: steps.check_existing_pr.outputs.existing_pr == ''
-        run: |
-          BRANCH_NAME="release/v${{ steps.new_version.outputs.new_version }}"
-          git checkout -b "$BRANCH_NAME"
-          echo "Created release branch: $BRANCH_NAME"
-
       - name: Update package.json version
-        if: steps.check_existing_pr.outputs.existing_pr == ''
         run: |
-          pnpm version ${{ steps.new_version.outputs.new_version }} --no-git-tag-version
-          echo "Updated package.json to version ${{ steps.new_version.outputs.new_version }}"
+          pnpm version ${{ needs.set_version.outputs.version }} --no-git-tag-version
+          echo "Updated package.json to version ${{ needs.set_version.outputs.version }}"
 
-      - name: Update CHANGELOG
-        if: steps.check_existing_pr.outputs.existing_pr == ''
-        run: |
-          # Create or update CHANGELOG.md
-          if [ ! -f "CHANGELOG.md" ]; then
-            echo "# Changelog" > CHANGELOG.md
-            echo "" >> CHANGELOG.md
-          fi
-
-          # Add new version entry
-          sed -i "1a\\
-          ## [v${{ steps.new_version.outputs.new_version }}] - $(date -u +%Y-%m-%d)\\
-          \\
-          ### 🚀 Features\\
-          - Automated release preparation\\
-          \\
-          ### 🔧 Maintenance\\
-          - Version bump to ${{ steps.new_version.outputs.new_version }}\\
-          \\
-          " CHANGELOG.md
-
-          echo "Updated CHANGELOG.md"
-
-      - name: Commit changes
-        if: steps.check_existing_pr.outputs.existing_pr == ''
+      - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json CHANGELOG.md
-          git commit -m "chore: prepare release v${{ steps.new_version.outputs.new_version }}"
-          echo "Committed version bump and changelog updates"
-
-      - name: Push release branch
-        if: steps.check_existing_pr.outputs.existing_pr == ''
-        run: |
-          BRANCH_NAME="release/v${{ steps.new_version.outputs.new_version }}"
-          git push origin "$BRANCH_NAME"
-          echo "Pushed release branch"
-
-      - name: Create Pull Request
-        if: steps.check_existing_pr.outputs.existing_pr == ''
-        run: |
-          BRANCH_NAME="release/v${{ steps.new_version.outputs.new_version }}"
-          gh pr create \
-            --title "🚀 Release v${{ steps.new_version.outputs.new_version }}" \
-            --body "## Release v${{ steps.new_version.outputs.new_version }}
-
-          This PR prepares the release of version ${{ steps.new_version.outputs.new_version }}.
-
-          ### Changes
-          - Version bump from ${{ steps.current_version.outputs.current_version }} to ${{ steps.new_version.outputs.new_version }}
-          - Updated CHANGELOG.md
-          - Release branch created
-
-          ### Next Steps
-          1. Review the changes
-          2. Merge this PR
-          3. Create a git tag: \`git tag v${{ steps.new_version.outputs.new_version }}\`
-          4. Push the tag: \`git push origin v${{ steps.new_version.outputs.new_version }}\`
-          5. The release workflow will automatically publish to npm
-
-          ### Version Details
-          - **Current**: ${{ steps.current_version.outputs.current_version }}
-          - **New**: ${{ steps.new_version.outputs.new_version }}
-          - **Bump Type**: ${{ steps.bump_type.outputs.bump_type }}
-
-          ---
-          *This PR was automatically generated by GitHub Actions*" \
-            --base main \
-            --head "$BRANCH_NAME" \
-            --label "release" \
-            --label "automated"
-
-          echo "Created release PR"
-
-      - name: Skip if PR exists
-        if: steps.check_existing_pr.outputs.existing_pr != ''
-        run: |
-          echo "Release PR already exists: #${{ steps.check_existing_pr.outputs.existing_pr }}"
-          echo "Skipping release preparation"
+          git commit -m "chore: prepare release v${{ needs.set_version.outputs.version }}"
+          git push origin main
+          echo "Committed and pushed version bump to main branch"

@@ -38,7 +38,7 @@ jobs:
           echo "Version: $(node -p "require('./package.json').version")"
           echo "Main entry: $(node -p "require('./package.json').main")"
           echo "Bin entry: $(node -p "require('./package.json').bin")"
-          echo "Files to publish: $(node -p "require('./package.json').files.join(', ')"
+          echo "Files to publish: $(node -p "require('./package.json').files.join(', ')")
 
       - name: Verify npx runner
         run: |

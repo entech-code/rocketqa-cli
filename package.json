@@ -7,7 +7,6 @@
     "pandatest": "./npx-runner.js"
   },
   "scripts": {
-    "test": "node npx-runner.js test",
     "steps": "node npx-runner.js steps",
     "install": "node npx-runner.js install",
     "prepublishOnly": "npm test"
