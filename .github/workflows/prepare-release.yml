@@ -51,9 +51,6 @@ jobs:
         with:
           version: latest
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Update package.json version
         run: |
           pnpm version ${{ needs.set_version.outputs.version }} --no-git-tag-version
@@ -63,7 +60,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add package.json CHANGELOG.md
+          git add package.json
           git commit -m "chore: prepare release v${{ needs.set_version.outputs.version }}"
           git push origin main
           echo "Committed and pushed version bump to main branch"
