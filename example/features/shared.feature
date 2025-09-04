@@ -1,3 +1,3 @@
 Feature: Shared
   Scenario: Open Google
-    Given on "https://google.com/" page
+    When navigate to "https://google.com/"

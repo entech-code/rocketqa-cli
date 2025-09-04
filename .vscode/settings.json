@@ -28,20 +28,14 @@
   "typescript.referencesCodeLens.enabled": true,
   "typescript.implementationsCodeLens.enabled": true,
   "git.autofetch": true,
-  "eslint.alwaysShowStatus": true,
-  "eslint.options": {
-    "extensions": [".js", ".ts"]
-  },
+
   "eslint.validate": ["javascript", "typescript"],
   "prettier.singleQuote": true,
   "prettier.trailingComma": "all",
 
-  "cucumberautocomplete.syncfeatures": "./features/**/*.feature",
-  "cucumberautocomplete.steps": ["./src/steps/**/*.ts"],
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cucumber.features": ["features/**/*.feature"],
-  "cucumber.glue": ["src/steps/**/*.ts"]
+  "eslint.run": "onType"
 }

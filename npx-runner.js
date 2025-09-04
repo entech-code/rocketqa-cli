@@ -12,7 +12,7 @@ const nodeVersion = process.version;
 const majorVersion = parseInt(nodeVersion.slice(1).split('.')[0]);
 
 if (majorVersion < 20) {
-  console.error('❌ Node.js versin requirement not met');
+  console.error('❌ Node.js version requirement not met');
   console.log(`Current version: ${nodeVersion}`);
   console.log('Required version: Node.js 20+');
   console.log('\nPlease upgrade Node.js to version 20 or higher to use pandatest.');

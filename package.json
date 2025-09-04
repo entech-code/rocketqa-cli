@@ -9,7 +9,9 @@
   "scripts": {
     "steps": "node npx-runner.js steps",
     "install": "node npx-runner.js install",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm test",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "engines": {
     "node": ">=20"
@@ -52,7 +54,17 @@
     "yaml": "^2.8.1"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0"
+    "@eslint/js": "^9.34.0",
+    "@eslint/json": "^0.13.2",
+    "@eslint/markdown": "^7.2.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "eslint": "^9.34.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.4",
+    "globals": "^16.3.0",
+    "jiti": "^2.5.1",
+    "typescript-eslint": "^8.42.0"
   },
   "files": [
     "npx-runner.js",

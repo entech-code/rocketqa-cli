@@ -1,7 +1,7 @@
+import { config } from '../config';
 import { setDefaultTimeout } from '@cucumber/cucumber';
 import { chromium, firefox, webkit } from '@playwright/test';
 import type { Browser, Page } from '@playwright/test';
-import { config } from '../config';
 
 setDefaultTimeout(120_000);
 

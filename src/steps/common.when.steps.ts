@@ -1,9 +1,9 @@
 import { PandaTestWorld } from '../pandaTestWorld';
 import { waitForPageFullyLoaded } from '../helpers/page.helper';
 import { parseLocator } from '../helpers/locator.helper';
-import { When } from '@cucumber/cucumber';
 import { config } from '../config';
 import { retry } from '../helpers/retry.helper';
+import { When } from '@cucumber/cucumber';
 
 When('navigate to {string}', async function (this: PandaTestWorld, url: string) {
   await this.page?.goto(url);

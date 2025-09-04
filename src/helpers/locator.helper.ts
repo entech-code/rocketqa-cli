@@ -4,14 +4,14 @@ import fs from 'fs';
 const locatorsFilePath = process.env.LOCATORS_PATH || './locators.yml';
 
 // Cache for parsed locators to avoid repeated file reads
-let locatorsCache: any = null;
+let locatorsCache: unknown = null;
 let lastModifiedTime: number = 0;
 
 /**
  * Get nested value from object using dot notation
  * Supports multi-level nesting like 'page.section.element'
  */
-function getNestedValue(obj: any, path: string): any {
+function getNestedValue(obj: unknown, path: string): unknown {
   return path.split('.').reduce((current, key) => {
     return current && current[key] !== undefined ? current[key] : undefined;
   }, obj);
@@ -21,7 +21,7 @@ function getNestedValue(obj: any, path: string): any {
  * Load and cache locators from YAML file
  * Invalidates cache if file has been modified
  */
-function loadLocators(): any {
+function loadLocators(): unknown {
   try {
     const stats = fs.statSync(locatorsFilePath);
     const currentModifiedTime = stats.mtime.getTime();
@@ -69,7 +69,7 @@ export function parseLocator(selector: string): string {
     const foundSelector = getNestedValue(pages, selector);
 
     if (foundSelector !== undefined) {
-      actualSelector = foundSelector;
+      actualSelector = foundSelector as string;
     } else {
       console.log(`Locator '${selector}' not found in ${locatorsFilePath}`);
     }
@@ -83,7 +83,7 @@ export function parseLocator(selector: string): string {
 /**
  * Get all available locators (useful for debugging or validation)
  */
-export function getAllLocators(): any {
+export function getAllLocators(): unknown {
   return loadLocators();
 }
 

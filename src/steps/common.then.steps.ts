@@ -1,10 +1,10 @@
 import { PandaTestWorld } from '../pandaTestWorld';
 import { waitForPageFullyLoaded } from '../helpers/page.helper';
-import { Then } from '@cucumber/cucumber';
-import { expect } from '@playwright/test';
 import { config } from '../config';
 import { retry, retryUntilTruthy } from '../helpers/retry.helper';
 import { parseLocator } from '../helpers/locator.helper';
+import { expect } from '@playwright/test';
+import { Then } from '@cucumber/cucumber';
 
 Then('{locator} is visible', async function (this: PandaTestWorld, selector: string) {
   const page = this.page!;
