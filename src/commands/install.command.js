@@ -6,7 +6,7 @@ async function handleInstallCommand() {
   try {
     execSync('npx playwright install', { stdio: 'inherit' });
     console.log('\n✅ Playwright browsers installed successfully!');
-    console.log('\n🎯 You can now run your tests with: rocketmq test');
+    console.log('\n🎯 You can now run your tests with: rocketqa test');
   } catch (error) {
     console.error('\n❌ Failed to install Playwright browsers');
     console.error('Error:', error.message);

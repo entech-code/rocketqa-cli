@@ -15,7 +15,7 @@ if (majorVersion < 20) {
   console.error('❌ Node.js version requirement not met');
   console.log(`Current version: ${nodeVersion}`);
   console.log('Required version: Node.js 20+');
-  console.log('\nPlease upgrade Node.js to version 20 or higher to use rocketmq.');
+  console.log('\nPlease upgrade Node.js to version 20 or higher to use rocketqa.');
   console.log('You can download it from: https://nodejs.org/');
   process.exit(1);
 }
@@ -24,8 +24,8 @@ if (majorVersion < 20) {
 const program = new Command();
 
 program
-  .name('rocketmq')
-  .description('🚀 RocketMQ - Cucumber Playwright Test Runner')
+  .name('rocketqa')
+  .description('🚀 RocketQA - Cucumber Playwright Test Runner')
   .version('1.0.0');
 
 program
@@ -37,7 +37,7 @@ program
 program
   .command('init')
   .description(
-    'Initialize a new RocketMQ project with features folder, example feature, and locators.yml',
+    'Initialize a new RocketQA project with features folder, example feature, and locators.yml',
   )
   .action(handleInitCommand);
 

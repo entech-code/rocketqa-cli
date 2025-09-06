@@ -3,7 +3,7 @@ const path = require('path');
 const readline = require('readline');
 
 async function handleInitCommand() {
-  console.log('🚀 Initializing new RocketMQ project...\n');
+  console.log('🚀 Initializing new RocketQA project...\n');
 
   try {
     // Get project name from user
@@ -29,9 +29,9 @@ async function handleInitCommand() {
     console.log(`\n📁 Project created in: ${projectDir}`);
     console.log('\n📚 Next steps:');
     console.log(`1. cd ${projectName}`);
-    console.log('2. Install Playwright browsers: rocketmq install');
-    console.log('3. Run your tests with: rocketmq test');
-    console.log('4. List available steps with: rocketmq steps');
+    console.log('2. Install Playwright browsers: rocketqa install');
+    console.log('3. Run your tests with: rocketqa test');
+    console.log('4. List available steps with: rocketqa steps');
     console.log('5. Check the features/ directory for your test scenarios');
     console.log('6. Update locators.yml with your page elements');
   } catch (error) {
@@ -74,8 +74,8 @@ async function promptForProjectName() {
       rl.close();
 
       if (!answer || answer.trim() === '') {
-        console.log('⚠️  Project name cannot be empty. Using default name "rocketmq-project"');
-        resolve('rocketmq-project');
+        console.log('⚠️  Project name cannot be empty. Using default name "rocketqa-project"');
+        resolve('rocketqa-project');
       } else {
         // Clean the project name (remove special characters, spaces, etc.)
         const cleanName = answer

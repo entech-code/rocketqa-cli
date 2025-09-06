@@ -1,10 +1,10 @@
-# <img src="assets/icon.png" alt="RocketMQ Logo" width="30" height="30"> RocketMQ
+# <img src="assets/icon.png" alt="RocketQA Logo" width="30" height="30"> RocketQA
 
-[![npm version](https://badge.fury.io/js/rocketmq.svg)](https://badge.fury.io/js/rocketmq) [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/rocketqa.svg)](https://badge.fury.io/js/rocketqa) [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Documentation | API reference
 
-RocketMQ is a universal testing tool that works in any project with a features folder. Write your tests using only natural language - no coding required! It offers a comprehensive set of pre-built steps for creating any web e2e test, enabling **universal**, **zero-setup**, **reliable** and **fast** testing.
+RocketQA is a universal testing tool that works in any project with a features folder. Write your tests using only natural language - no coding required! It offers a comprehensive set of pre-built steps for creating any web e2e test, enabling **universal**, **zero-setup**, **reliable** and **fast** testing.
 
 | Features | Status | Description |
 |----------|--------|-------------|
@@ -24,7 +24,7 @@ Zero-setup execution is supported for all projects.
 
 ## Installation
 
-RocketMQ requires Node.js 20 or higher. If you don't have it installed, you can install it using:
+RocketQA requires Node.js 20 or higher. If you don't have it installed, you can install it using:
 
 **macOS/Linux:**
 
@@ -48,15 +48,15 @@ nvm use 20
 # Or download directly from https://nodejs.org/
 ```
 
-RocketMQ has its own test runner, we call it RocketMQ Test.
+RocketQA has its own test runner, we call it RocketQA Test.
 
 ### Using init command
 
-The easiest way to get started with RocketMQ Test is to run the init command.
+The easiest way to get started with RocketQA Test is to run the init command.
 
 ```bash
 # Run from your project's root directory
-npx rocketmq init
+npx rocketqa init
 ```
 
 This will create a configuration file, add example features, create a locators.yml file, and set up your first test. You can now jump directly to writing tests.
@@ -81,7 +81,7 @@ toach features/login.feature
 
 ## Examples
 
-To learn how to run these RocketMQ Test examples, check out our getting started docs.
+To learn how to run these RocketQA Test examples, check out our getting started docs.
 
 ### Basic feature test
 
@@ -131,20 +131,20 @@ This code snippet shows how to run tests with specific tags and filtering option
 
 ```bash
 # Runs all tests
-npx rocketmq test 
+npx rocketqa test 
 
 # Run tests with specific tags
-npx rocketmq test --tags @smoke
-npx rocketmq test --tags "not @slow"
+npx rocketqa test --tags @smoke
+npx rocketqa test --tags "not @slow"
 
 # Run tests with specific names
-npx rocketmq test --name "Open Blog Page"
+npx rocketqa test --name "Open Blog Page"
 
 # Run tests matching regex pattern
-npx rocketmq test --grep "blogs|login"
+npx rocketqa test --grep "blogs|login"
 
 # Combine options
-npx rocketmq test features/smoke/*.feature --tags @critical
+npx rocketqa test features/smoke/*.feature --tags @critical
 ```
 
 ### Step discovery
@@ -153,22 +153,22 @@ This snippet shows how to discover all available step definitions in your projec
 
 ```bash
 # List all steps in JSON format
-npx rocketmq steps
+npx rocketqa steps
 
 # List all steps in table format
-npx rocketmq steps --format table
+npx rocketqa steps --format table
 ```
 
 ### Step Discovery
 
-Use the `npx rocketmq steps` command to see all available steps in your project:
+Use the `npx rocketqa steps` command to see all available steps in your project:
 
 ```bash
 # List all available steps
-npx rocketmq steps
+npx rocketqa steps
 
 # View steps in table format
-npx rocketmq steps --format table
+npx rocketqa steps --format table
 ```
 
 This command scans your project and displays all available Given, When, and Then steps, making it easy to discover what's available for your tests.
@@ -182,11 +182,11 @@ This command scans your project and displays all available Given, When, and Then
 
 ## About
 
-RocketMQ is a universal testing tool that works in any project with a features folder. It allows testing web applications with zero configuration.
+RocketQA is a universal testing tool that works in any project with a features folder. It allows testing web applications with zero configuration.
 
 ### Topics
 
-javascript testing automation web test test-automation testing-tools end-to-end-testing e2e-testing rocketmq universal-tool
+javascript testing automation web test test-automation testing-tools end-to-end-testing e2e-testing rocketqa universal-tool
 
 ### License
 

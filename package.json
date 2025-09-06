@@ -1,10 +1,10 @@
 {
-  "name": "rocketmq",
-  "version": "0.4.0",
+  "name": "rocketqa",
+  "version": "0.3.0",
   "description": "Universal Cucumber testing tool that works in any project with a features folder",
   "main": "npx-runner.js",
   "bin": {
-    "rocketmq": "./npx-runner.js"
+    "rocketqa": "./npx-runner.js"
   },
   "scripts": {
     "steps": "node npx-runner.js steps",

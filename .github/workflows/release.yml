@@ -68,19 +68,19 @@ jobs:
 
             ### 📦 Installation
             ```bash
-            npx rocketmq test
+            npx rocketqa test
             ```
 
             ### 🔧 Usage
             ```bash
             # Run all tests
-            npx rocketmq test
+            npx rocketqa test
 
             # Run specific feature files
-            npx rocketmq test features/smoke/*.feature
+            npx rocketqa test features/smoke/*.feature
 
             # Run with tags
-            npx rocketmq test --tags @smoke
+            npx rocketqa test --tags @smoke
             ```
 
             ### 📋 Requirements
@@ -97,7 +97,7 @@ jobs:
 
             ### 🔗 Links
             - [GitHub Repository](https://github.com/${{ github.repository }})
-            - [npm Package](https://www.npmjs.com/package/rocketmq)
+            - [npm Package](https://www.npmjs.com/package/rocketqa)
 
             ---
 
