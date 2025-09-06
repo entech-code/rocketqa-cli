@@ -1,6 +1,6 @@
 {
   "name": "rocketmq",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Universal Cucumber testing tool that works in any project with a features folder",
   "main": "npx-runner.js",
   "bin": {
