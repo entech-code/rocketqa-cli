@@ -21,7 +21,7 @@ jobs:
       - uses: entech-code/auto-version-tagging-action@HEAD
         id: auto_version_tagging
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
           majorVersion: 0
 
       - name: Setup Node.js
