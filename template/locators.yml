@@ -1,0 +1,9 @@
+# Google Search Page Locators
+# This file contains locators for Google search functionality
+
+navbar:
+  blog: "(//a[@href='/blog'])[1]"
+  home: "(//a[@href='/'])[1]"
+
+blogPage:
+  firstBlogPostCard: "(//*[contains(@class,'blog-post-card')])[1]"
