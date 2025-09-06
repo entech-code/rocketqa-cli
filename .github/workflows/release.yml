@@ -2,12 +2,6 @@ name: Release npx package
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version (format X.X.X)'
-        required: true
-        type: string
-
 env:
   NODE_VERSION: '20'
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
