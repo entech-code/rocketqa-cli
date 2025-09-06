@@ -1,7 +1,7 @@
 {
   "name": "rocketqa",
-  "version": "0.5.0",
-  "description": "Universal Cucumber testing tool that works in any project with a features folder",
+  "version": "0.0.0",
+  "description": "🚀 RocketQA - Simplifies and speeds up writing tests using natural language and running them.",
   "main": "npx-runner.js",
   "bin": {
     "rocketqa": "./npx-runner.js"
@@ -71,6 +71,11 @@
   },
   "files": [
     "npx-runner.js",
-    "README-npx.md"
+    "src/",
+    "template/",
+    "assets/",
+    "cucumber.mjs",
+    "README.md",
+    "tsconfig.json"
   ]
 }

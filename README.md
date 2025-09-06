@@ -1,4 +1,4 @@
-# <img src="assets/icon.png" alt="RocketQA Logo" width="30" height="30"> RocketQA
+# <img src="https://github.com/entech-code/rocketqa-cli/blob/main/assets/icon.png?raw=true" alt="RocketQA Logo" width="30" height="30"> RocketQA
 
 [![npm version](https://badge.fury.io/js/rocketqa.svg)](https://badge.fury.io/js/rocketqa) [![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](https://nodejs.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 

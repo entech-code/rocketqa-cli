@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { cwd } = require('process');
 const { Command } = require('commander');
+const packageJson = require('./package.json');
 const { handleStepsCommand } = require('./src/commands/steps.command');
 const { handleTestCommand } = require('./src/commands/test.command');
 const { handleInitCommand } = require('./src/commands/init.command');
@@ -23,10 +23,7 @@ if (majorVersion < 20) {
 // Create commander program
 const program = new Command();
 
-program
-  .name('rocketqa')
-  .description('🚀 RocketQA - Cucumber Playwright Test Runner')
-  .version('1.0.0');
+program.name('rocketqa').description(packageJson.description).version(packageJson.version);
 
 program
   .command('steps')
