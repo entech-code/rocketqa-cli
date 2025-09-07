@@ -110,7 +110,16 @@ function handleStepsCommand(options) {
   });
 
   if (options.format === 'json') {
-    console.log(JSON.stringify(consolidatedSteps, null, 2));
+    const jsonOutput = JSON.stringify(consolidatedSteps, null, 2);
+    console.log(jsonOutput);
+
+    if (options.save) {
+      const fs = require('fs');
+      const path = require('path');
+      const outputPath = path.join(process.cwd(), 'steps.json');
+      fs.writeFileSync(outputPath, jsonOutput);
+      console.log(`\n✅ Step definitions saved to: ${outputPath}`);
+    }
   } else if (options.format === 'table') {
     console.log('\n📋 Step Definitions Summary:');
     console.log('='.repeat(80));

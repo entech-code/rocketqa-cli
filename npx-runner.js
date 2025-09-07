@@ -29,6 +29,7 @@ program
   .command('steps')
   .description('List all step definitions')
   .option('--format <format>', 'Output format (json, table)', 'json')
+  .option('--save', 'Save step definitions to steps.json file')
   .action(handleStepsCommand);
 
 program
