@@ -47,6 +47,9 @@ jobs:
           pnpm version ${{ steps.auto_version_tagging.outputs.version }} --no-git-tag-version
           echo "Updated package.json to version ${{ steps.auto_version_tagging.outputs.version }}"
 
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Generate steps.json
         run: |
           echo "Generating steps.json..."
