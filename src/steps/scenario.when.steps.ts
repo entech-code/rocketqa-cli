@@ -2,18 +2,20 @@ import { PandaTestWorld } from '../pandaTestWorld';
 import { When } from '@cucumber/cucumber';
 import { spawn } from 'child_process';
 import * as path from 'path';
+import { resolveCucumberExecutable } from '../helpers/executable.helper';
 
 When('run scenario {scenario}', async function (this: PandaTestWorld, scenarioName: string) {
   await new Promise<void>((resolve, reject) => {
     const projectRoot = path.join(__dirname, '..', '..');
-    const cucumberPath = path.join(
-      projectRoot,
-      'node_modules',
-      '@cucumber',
-      'cucumber',
-      'bin',
-      'cucumber-js',
-    );
+
+    // Use helper to resolve cucumber executable regardless of installation context
+    let cucumberPath: string;
+    try {
+      cucumberPath = resolveCucumberExecutable(projectRoot);
+    } catch (error) {
+      reject(new Error(`Could not find @cucumber/cucumber: ${(error as Error).message}`));
+      return;
+    }
 
     const child = spawn(
       'node',

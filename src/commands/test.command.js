@@ -4,6 +4,7 @@ const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 const { cwd } = require('process');
+const { resolveCucumberExecutable } = require('../helpers/executable.helper');
 
 function handleTestCommand(featurePath, options) {
   let cucumberArgs = [];
@@ -95,14 +96,19 @@ function handleTestCommand(featurePath, options) {
   console.log(`📁 Website URL: ${options.websiteUrl}`);
   console.log(`📁 Feature path: ${featurePath}`);
 
-  const cucumberPath = path.join(
-    projectRoot,
-    'node_modules',
-    '@cucumber',
-    'cucumber',
-    'bin',
-    'cucumber-js',
-  );
+  // Use helper to resolve cucumber executable regardless of installation context (local, global, npx)
+  let cucumberPath;
+  try {
+    cucumberPath = resolveCucumberExecutable(projectRoot);
+  } catch (error) {
+    console.error(
+      '❌ Could not find @cucumber/cucumber. Please ensure dependencies are installed.',
+    );
+    console.error('Error:', error.message);
+    process.exit(1);
+  }
+
+  console.log(`🥒 Using cucumber-js at: ${cucumberPath}`);
   const child = spawn('node', [cucumberPath, ...finalArgs], {
     stdio: 'inherit',
     cwd: projectRoot, // Set working directory to package root
