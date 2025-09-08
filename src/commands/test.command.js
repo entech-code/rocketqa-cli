@@ -78,10 +78,6 @@ function handleTestCommand(featurePath, options) {
     featurePath,
     '-c',
     'cucumber.mjs',
-    '--require',
-    'src/**/*.ts',
-    '--require-module',
-    'ts-node/register',
     options.keep ? '' : '--exit',
     ...cucumberArgs,
   ];
