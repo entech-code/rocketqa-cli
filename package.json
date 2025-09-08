@@ -8,7 +8,6 @@
   },
   "scripts": {
     "steps": "node npx-runner.js steps",
-    "install": "node npx-runner.js install",
     "prepublishOnly": "npm test",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
