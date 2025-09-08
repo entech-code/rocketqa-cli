@@ -1,13 +1,24 @@
 import { PandaTestWorld } from '../pandaTestWorld';
 import { When } from '@cucumber/cucumber';
 import { spawn } from 'child_process';
+import * as path from 'path';
 
 When('run scenario {scenario}', async function (this: PandaTestWorld, scenarioName: string) {
   await new Promise<void>((resolve, reject) => {
+    const projectRoot = path.join(__dirname, '..', '..');
+    const cucumberPath = path.join(
+      projectRoot,
+      'node_modules',
+      '@cucumber',
+      'cucumber',
+      'bin',
+      'cucumber-js',
+    );
+
     const child = spawn(
-      'npx',
+      'node',
       [
-        'cucumber-js',
+        cucumberPath,
         process.env.FEATURES_PATH,
         '--config',
         'cucumber.mjs',

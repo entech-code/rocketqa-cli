@@ -74,7 +74,6 @@ function handleTestCommand(featurePath, options) {
 
   // Build the final cucumber arguments
   const finalArgs = [
-    '@cucumber/cucumber',
     featurePath,
     '-c',
     'cucumber.mjs',
@@ -82,7 +81,12 @@ function handleTestCommand(featurePath, options) {
     ...cucumberArgs,
   ];
 
-  console.log('Command:', 'npx', finalArgs.join(' '));
+  console.log(
+    'Command:',
+    'node',
+    'node_modules/@cucumber/cucumber/bin/cucumber-js',
+    finalArgs.join(' '),
+  );
 
   const projectRoot = path.join(__dirname, '..', '..');
   // Add debugging information
@@ -91,7 +95,15 @@ function handleTestCommand(featurePath, options) {
   console.log(`📁 Website URL: ${options.websiteUrl}`);
   console.log(`📁 Feature path: ${featurePath}`);
 
-  const child = spawn('npx', finalArgs, {
+  const cucumberPath = path.join(
+    projectRoot,
+    'node_modules',
+    '@cucumber',
+    'cucumber',
+    'bin',
+    'cucumber-js',
+  );
+  const child = spawn('node', [cucumberPath, ...finalArgs], {
     stdio: 'inherit',
     cwd: projectRoot, // Set working directory to package root
     env: {
