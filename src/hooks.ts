@@ -26,14 +26,13 @@ After(async function (this: PandaTestWorld) {
     return;
   }
 
-  if (process.env.KEEP === 'false' && process.env.HEADLESS !== 'true') {
-    try {
-      console.log('closing browser');
-      await this.context?.close();
-    } catch {
-      // ignore
-    }
+  // if (process.env.KEEP === 'false' && process.env.HEADLESS !== 'true') {
+  try {
+    await this.context?.close();
+  } catch {
+    // ignore
   }
+  // }
   this.page = undefined;
   this.context = undefined;
 });
