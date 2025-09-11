@@ -73,14 +73,9 @@ function handleTestCommand(featurePath, options) {
     ? path.join(process.cwd(), `**/*${options.grep}*`)
     : path.join(process.cwd(), featurePath);
 
+  const keep = options.keep && !options['headless'];
   // Build the final cucumber arguments
-  const finalArgs = [
-    featurePath,
-    '-c',
-    'cucumber.mjs',
-    options.keep ? '' : '--exit',
-    ...cucumberArgs,
-  ];
+  const finalArgs = [featurePath, '-c', 'cucumber.mjs', keep ? '' : '--exit', ...cucumberArgs];
 
   console.log(
     'Command:',
@@ -118,7 +113,7 @@ function handleTestCommand(featurePath, options) {
       LOCATORS_PATH: cwd() + '/locators.yml',
       FEATURES_PATH: cwd() + '/features/**/*.feature',
       HEADLESS: options['headless'] ? 'true' : 'false',
-      KEEP: options.keep ? 'true' : 'false',
+      KEEP: keep ? 'true' : 'false',
       WEBSITE_URL: options.websiteUrl,
     },
   });
